@@ -1,6 +1,7 @@
+<!DOCTYPE html>
 <html>
 	<head>
-		<title>"Weebpocalypse"</title>
+		<title>Weebpocalypse</title>
 		<style>
 			*{
 				font-size: 50px
@@ -9,7 +10,7 @@
 				padding-top: 100px;
 				text-align: center;
 				margin: auto;
-				width: 1900px;
+				width: 80%;
 			}
 			h1{
 				font-size: 150px;
@@ -42,14 +43,20 @@
 			<button onclick="runGame()">Start Game</button>
 		</div>
 
-		<div id="game" class="center" style="display: none;">
-			<h1 id="anime_name">Anime Name</h1>
-			<p id="timer" style="margin-bottom: 0px;">Seconds left: <b>0</b></p>
-			<progress id="timer-bar" value="0" max="1" style="height: 100px;"></progress>
-			<p id="score_game" style="margin-top: 0px;">Score: <b>0</b></p>
-			<button onclick="endGame()" style="margin-right: 200px;">Quit</button>
-			<button onclick="nextRound(1)" class="green">Correct</button>
-			<button onclick="nextRound(0)" class="red">Skip</button>
+		<div id="game" class="center" style="display: none; padding-top: 0px;">
+			<div style="height: 500px; line-height: 500px;">
+				<span style="vertical-align: middle; display: inline-block; line-height: 150px;">
+					<h1 id="anime_name" style="margin: 0px;">Anime Name</h1>
+				</span>
+			</div>
+			<div style="position: absolute; bottom: 50px; width: 80%; text-align: center;">
+				<p id="timer" style="margin-bottom: 0px;">Seconds left: <b>0</b></p>
+				<progress id="timer-bar" value="0" max="1" style="height: 100px;"></progress>
+				<p id="score_game" style="margin-top: 0px;">Score: <b>0</b></p>
+				<button onclick="endGame()" style="margin-right: 200px;">Quit</button>
+				<button onclick="nextRound(1)" class="green">Correct</button>
+				<button onclick="nextRound(0)" class="red">Skip</button>
+			</div>
 		</div>
 
 		<div id="end" class="center" style="display: none;">
