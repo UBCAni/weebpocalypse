@@ -2,33 +2,60 @@
 	<head>
 		<title>"Weebpocalypse"</title>
 		<style>
-		
+			*{
+				font-size: 50px
+			}
+			.center{
+				padding-top: 100px;
+				text-align: center;
+				margin: auto;
+				width: 1900px;
+			}
+			h1{
+				font-size: 150px;
+			}
+			button{
+				padding: 30px 30px;
+			}
+			.green{
+				background-color: limegreen;
+			}
+			.green:hover{
+				background-color: green;
+			}
+			.red{
+				background-color: firebrick;
+			}
+			.red:hover{
+				background-color: darkred;
+			}
 		</style>
 	</head>
 	<body>
-		<div id="menu" style="display: block">
-			<h1>Welcome to Weebpocalypse!</h1>
-			<nobr>
-				<p>Timer (seconds):</p>
-				<input type="number" id="timer_val">
-			</nobr>
+		<div id="menu" class="center" style="display: block;">
+			<h1>Weebpocalypse</h1>
+			<div>
+				<label>Timer (seconds):</label>
+				<input type="number" id="timer_val" style="width: 200px;">
+			</div>
 			<br>
-			<button onclick="startGame()">Start Game</button>
+			<button onclick="runGame()">Start Game</button>
 		</div>
 
-		<div id="game" style="display: none">
+		<div id="game" class="center" style="display: none;">
 			<h1 id="anime_name">Anime Name</h1>
-			<p id="timer">Seconds left: 0</p>
-			<p id="score_game">Score: 0</p>
-			<button onclick="endGame()">Quit</button>
-			<button onclick="nextRound(1)">Correct</button>
-			<button onclick="nextRound(0)">Skip</button>
+			<p id="timer" style="margin-bottom: 0px;">Seconds left: <b>0</b></p>
+			<progress id="timer-bar" value="0" max="1" style="height: 100px;"></progress>
+			<p id="score_game" style="margin-top: 0px;">Score: <b>0</b></p>
+			<button onclick="endGame()" style="margin-right: 200px;">Quit</button>
+			<button onclick="nextRound(1)" class="green">Correct</button>
+			<button onclick="nextRound(0)" class="red">Skip</button>
 		</div>
 
-		<div id="end" style="display: none">
+		<div id="end" class="center" style="display: none;">
 			<h1>Game Over!</h1>
-			<p id="score_end">Your score was: 0</p>
-			<button onclick="restart()">OK</button>
+			<p id="score_end">Your score was: <b>0</b></p>
+			<button onclick="reset()">OK</button>
 		</div>
 	</body>
 
@@ -36,7 +63,64 @@
 	<script>
 		var score = 0;
 		var anime_index = 0;
-		var timer
+		var timer;
+
+		function runGame(){
+			changeScreen("game");
+			shuffleAnime();
+			document.getElementById("anime_name").innerHTML = anime_list[0];
+
+			var timer_val = document.getElementById("timer_val").value;
+			var timer_start = timer_val;
+
+			// have to show timer once before entering setInterval since setInterval waits out the duration BEFORE first run
+			document.getElementById("timer").innerHTML = "Seconds left: <b>" + timer_val + "</b>";
+			timer = setInterval(function(){
+				timer_val--;
+
+				// end when timer hits -1 so it displays the 0 on screen
+				if(timer_val < 0){
+					endGame();
+					return;
+				}
+
+				document.getElementById("timer").innerHTML = "Seconds left: <b>" + timer_val + "</b>";
+				document.getElementById("timer-bar").value = 1 - timer_val/timer_start;
+			}, 1000);
+		}
+
+		function endGame(){
+			clearInterval(timer);
+			changeScreen("end");
+		}
+
+		function nextRound(correct){
+			anime_index++;
+
+			if(anime_index >= anime_list.length){
+				document.getElementById("anime_name").innerHTML = "Ran out of entries!";
+			}
+			else{
+				document.getElementById("anime_name").innerHTML = anime_list[anime_index];
+			}
+			
+			if(correct){
+				score++;
+				document.getElementById("score_game").innerHTML = "Score: <b>" + score + "</b>";
+				document.getElementById("score_end").innerHTML = "Your score was: <b>" + score + "</b>";
+			}
+		}
+
+		function reset(){
+			changeScreen("menu");
+
+			score = 0;
+			anime_index = 0;
+
+			document.getElementById("score_game").innerHTML = "Score: <b>0</b>";
+			document.getElementById("score_end").innerHTML = "Your score was: <b>0</b>";
+			document.getElementById("timer-bar").value = 0;
+		}
 
 		function changeScreen(screen){
 			document.getElementById("menu").style.display = screen == "menu" ? "block" : "none";
@@ -44,54 +128,11 @@
 			document.getElementById("end").style.display = screen == "end" ? "block" : "none";
 		}
 
-		function seedAnime(){
+		function shuffleAnime(){
 			// https://stackoverflow.com/a/12646864
 			for (let i = anime_list.length - 1; i > 0; i--) {
 				const j = Math.floor(Math.random() * (i + 1));
 				[anime_list[i], anime_list[j]] = [anime_list[j], anime_list[i]];
-			}
-		}
-
-		function endGame(){
-			clearInterval(timer)
-			changeScreen("end")
-		}
-
-		function startGame(){
-			changeScreen("game")
-			seedAnime()
-			document.getElementById("anime_name").innerHTML = anime_list[anime_index]
-
-			var timer_val = document.getElementById("timer_val").value;
-
-			// have to show timer once before entering setInterval since setInterval waits out the duration BEFORE first run
-			document.getElementById("timer").innerHTML = "Seconds left: " + timer_val
-			timer = setInterval(function(){
-				timer_val--
-				document.getElementById("timer").innerHTML = "Seconds left: " + timer_val
-
-				// end when timer hits -1 so it displays the 0 on screen
-				if(timer_val < 0){
-					endGame()
-				}
-			}, 1000);
-		}
-
-		function restart(){
-			changeScreen("menu")
-			score = 0
-			document.getElementById("score_game").innerHTML = "Score: " + score
-			document.getElementById("score_end").innerHTML = "Your score was: " + score
-		}
-
-		function nextRound(correct){
-			anime_index++
-			document.getElementById("anime_name").innerHTML = anime_list[anime_index]
-			
-			if(correct){
-				score++;
-				document.getElementById("score_game").innerHTML = "Score: " + score
-				document.getElementById("score_end").innerHTML = "Your score was: " + score
 			}
 		}
 	</script>
