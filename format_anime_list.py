@@ -1,0 +1,12 @@
+# with open('anime_list.txt', encoding = 'utf-8') as anime_list:
+# 	animes = anime_list.readlines()
+# 	animes = [anime.replace('\n', '') for anime in animes]
+# 	animes = '",\n"'.join(animes)
+# 	animes = 'var anime_list = [\n"' + animes + '"\n]'
+#
+# 	with open('anime_list.js', 'w', encoding = 'utf-8') as output:
+# 		output.write(animes)
+
+# the above, compacted into two lines for shits and giggles
+with open('anime_list.txt', encoding = 'utf-8') as al, open('anime_list.js', 'w', encoding = 'utf-8') as o:
+		o.write('var anime_list = [\n"' + '",\n"'.join([a.replace('\n', '') for a in al.readlines()]) + '"\n]')

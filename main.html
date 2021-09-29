@@ -1,0 +1,97 @@
+<html>
+	<head>
+		<title>"Weebpocalypse"</title>
+		<style>
+		
+		</style>
+	</head>
+	<body>
+		<div id="menu" style="display: block">
+			<h1>Welcome to Weebpocalypse!</h1>
+			<nobr>
+				<p>Timer (seconds):</p>
+				<input type="number" id="timer_val">
+			</nobr>
+			<br>
+			<button onclick="startGame()">Start Game</button>
+		</div>
+
+		<div id="game" style="display: none">
+			<h1 id="anime_name">Anime Name</h1>
+			<p id="timer">Seconds left: 0</p>
+			<p id="score_game">Score: 0</p>
+			<button onclick="endGame()">Quit</button>
+			<button onclick="nextRound(1)">Correct</button>
+			<button onclick="nextRound(0)">Skip</button>
+		</div>
+
+		<div id="end" style="display: none">
+			<h1>Game Over!</h1>
+			<p id="score_end">Your score was: 0</p>
+			<button onclick="restart()">OK</button>
+		</div>
+	</body>
+	<script src="anime_list.js"></script>
+	<script>
+		var score = 0;
+		var anime_index = 0;
+		var timer
+
+		function changeScreen(screen){
+			document.getElementById("menu").style.display = screen == "menu" ? "block" : "none";
+			document.getElementById("game").style.display = screen == "game" ? "block" : "none";
+			document.getElementById("end").style.display = screen == "end" ? "block" : "none";
+		}
+
+		function seedAnime(){
+			// https://stackoverflow.com/a/12646864
+			for (let i = anime_list.length - 1; i > 0; i--) {
+				const j = Math.floor(Math.random() * (i + 1));
+				[anime_list[i], anime_list[j]] = [anime_list[j], anime_list[i]];
+			}
+		}
+
+		function endGame(){
+			clearInterval(timer)
+			changeScreen("end")
+		}
+
+		function startGame(){
+			changeScreen("game")
+			seedAnime()
+			document.getElementById("anime_name").innerHTML = anime_list[anime_index]
+
+			var timer_val = document.getElementById("timer_val").value;
+
+			// have to show timer once before entering setInterval since setInterval waits out the duration BEFORE first run
+			document.getElementById("timer").innerHTML = "Seconds left: " + timer_val
+			timer = setInterval(function(){
+				timer_val--
+				document.getElementById("timer").innerHTML = "Seconds left: " + timer_val
+
+				// end when timer hits -1 so it displays the 0 on screen
+				if(timer_val < 0){
+					endGame()
+				}
+			}, 1000);
+		}
+
+		function restart(){
+			changeScreen("menu")
+			score = 0
+			document.getElementById("score_game").innerHTML = "Score: " + score
+			document.getElementById("score_end").innerHTML = "Your score was: " + score
+		}
+
+		function nextRound(correct){
+			anime_index++
+			document.getElementById("anime_name").innerHTML = anime_list[anime_index]
+			
+			if(correct){
+				score++;
+				document.getElementById("score_game").innerHTML = "Score: " + score
+				document.getElementById("score_end").innerHTML = "Your score was: " + score
+			}
+		}
+	</script>
+</html>
