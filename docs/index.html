@@ -15,6 +15,9 @@
 			h1{
 				font-size: 150px;
 			}
+			h2{
+				font-size: 100px;
+			}
 			button{
 				padding: 30px 30px;
 			}
@@ -40,13 +43,14 @@
 				<input type="number" id="timer_val" style="width: 200px;">
 			</div>
 			<br>
+			<button onclick="shuffleAnime()" style="margin-right: 200px;">Shuffle List</button>
 			<button onclick="runGame()">Start Game</button>
 		</div>
 
 		<div id="game" class="center" style="display: none; padding-top: 0px;">
 			<div style="height: 500px; line-height: 500px;">
-				<span style="vertical-align: middle; display: inline-block; line-height: 150px;">
-					<h1 id="anime_name" style="margin: 0px;">Anime Name</h1>
+				<span style="vertical-align: middle; display: inline-block; line-height: 100px;">
+					<h2 id="anime_name" style="margin: 0px;">Anime Name</h2>
 				</span>
 			</div>
 			<div style="position: absolute; bottom: 50px; width: 80%; text-align: center;">
@@ -74,7 +78,6 @@
 
 		function runGame(){
 			changeScreen("game");
-			shuffleAnime();
 			document.getElementById("anime_name").innerHTML = anime_list[0];
 
 			var timer_val = document.getElementById("timer_val").value;
