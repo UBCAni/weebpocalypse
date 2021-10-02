@@ -58,7 +58,8 @@
 				<progress id="timer-bar" value="0" max="1" style="height: 100px;"></progress>
 				<p id="score_game" style="margin-top: 0px;">Score: <b>0</b></p>
 				<button onclick="endGame()" style="margin-right: 200px;">Quit</button>
-				<button onclick="nextRound(1)" class="green">Correct</button>
+				<button onclick="nextRound(1)" class="green">+1</button>
+				<button onclick="nextRound(0.5)" class="green">+0.5</button>
 				<button onclick="nextRound(0)" class="red">Skip</button>
 			</div>
 		</div>
@@ -104,7 +105,7 @@
 			changeScreen("end");
 		}
 
-		function nextRound(correct){
+		function nextRound(points){
 			anime_index++;
 
 			if(anime_index >= anime_list.length){
@@ -114,8 +115,8 @@
 				document.getElementById("anime_name").innerHTML = anime_list[anime_index];
 			}
 			
-			if(correct){
-				score++;
+			if(points != 0){
+				score += points;
 				document.getElementById("score_game").innerHTML = "Score: <b>" + score + "</b>";
 				document.getElementById("score_end").innerHTML = "Your score was: <b>" + score + "</b>";
 			}
