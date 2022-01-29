@@ -79,7 +79,8 @@
 
 		function runGame(){
 			changeScreen("game");
-			document.getElementById("anime_name").innerHTML = anime_list[0];
+			anime_index++;
+			document.getElementById("anime_name").innerHTML = anime_list[anime_index];
 
 			var timer_val = document.getElementById("timer_val").value;
 			var timer_start = timer_val;
