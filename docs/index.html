@@ -67,6 +67,12 @@
 		<div id="end" class="center" style="display: none;">
 			<h1>Game Over!</h1>
 			<p id="score_end">Your score was: <b>0</b></p>
+			<p><b>Guessed:</b>
+				<ul id="list_right" style="text-align: left"></ul>
+			</p>
+			<p><b>Skipped:</b>
+				<ul id="list_skip" style="text-align: left"></ul>
+			</p>
 			<button onclick="reset()">OK</button>
 		</div>
 	</body>
@@ -120,6 +126,11 @@
 				score += points;
 				document.getElementById("score_game").innerHTML = "Score: <b>" + score + "</b>";
 				document.getElementById("score_end").innerHTML = "Your score was: <b>" + score + "</b>";
+
+				document.getElementById("list_right").innerHTML += "<li>" + anime_list[anime_index] + "</li>";
+			}
+			else{
+				document.getElementById("list_skip").innerHTML += "<li>" + anime_list[anime_index] + "</li>";
 			}
 		}
 
@@ -131,6 +142,9 @@
 			document.getElementById("score_game").innerHTML = "Score: <b>0</b>";
 			document.getElementById("score_end").innerHTML = "Your score was: <b>0</b>";
 			document.getElementById("timer-bar").value = 0;
+
+			document.getElementById("list_right").innerHTML = "";
+			document.getElementById("list_skip").innerHTML = "";
 		}
 
 		function changeScreen(screen){
