@@ -113,15 +113,6 @@
 		}
 
 		function nextRound(points){
-			anime_index++;
-
-			if(anime_index >= anime_list.length){
-				document.getElementById("anime_name").innerHTML = "Ran out of entries!";
-			}
-			else{
-				document.getElementById("anime_name").innerHTML = anime_list[anime_index];
-			}
-			
 			if(points != 0){
 				score += points;
 				document.getElementById("score_game").innerHTML = "Score: <b>" + score + "</b>";
@@ -131,6 +122,15 @@
 			}
 			else{
 				document.getElementById("list_skip").innerHTML += "<li>" + anime_list[anime_index] + "</li>";
+			}
+
+			anime_index++;
+
+			if(anime_index >= anime_list.length){
+				document.getElementById("anime_name").innerHTML = "Ran out of entries!";
+			}
+			else{
+				document.getElementById("anime_name").innerHTML = anime_list[anime_index];
 			}
 		}
 
