@@ -2,9 +2,34 @@ import json
 import requests
 
 if __name__ == '__main__':
+	# read client ID, client secret, and refresh token
+	with open('client_data.json') as file:
+		data = json.load(file)
+		client_id = data['CLIENT_ID']
+		client_secret = data['CLIENT_SECRET']
+
 	with open('token.json') as file:
 		data = json.load(file)
-		access_token = data['access_token']
+		refresh_token = data['refresh_token']
+
+	# then request a new access token and save it to file
+	url = 'https://myanimelist.net/v1/oauth2/token'
+
+	response = requests.post(url, data = {
+		'client_id': client_id,
+		'client_secret': client_secret,
+		'grant_type': 'refresh_token',
+		'refresh_token': refresh_token
+	})
+
+	response.raise_for_status()
+	token = response.json()
+	response.close()
+
+	with open('token.json', 'w') as file:
+		json.dump(token, file, indent = 4)
+
+	access_token = token['access_token']
 
 	# fetch top 500 most popular anime
 	url = 'https://api.myanimelist.net/v2/anime/ranking?ranking_type=bypopularity&limit=500'
