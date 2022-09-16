@@ -67,7 +67,7 @@ if __name__ == '__main__':
 		animes = animes1['data'] + animes2['data'] + animes3['data']
 		for anime in animes:
 			anime_list.append(anime['node']['title'].replace("\"", "'"))
-		list(set(anime_list))
+		anime_list = list(set(anime_list))
 
 		# format the list into a Javascript array and write that to the list file
 		anime_list_txt = 'var anime_list = [\n'
