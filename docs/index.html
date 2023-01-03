@@ -174,24 +174,41 @@
 
 		function getList(){
 			var username = prompt("Please enter your MAL username:", "");
-			var req = new XMLHttpRequest();
-			req.open("GET", `https://api.myanimelist.net/v2/users/${username}/animelist?status=completed&limit=1000&fields=alternative_titles`);
-			req.setRequestHeader("X-MAL-CLIENT-ID", "865edc428f4197b494945019f50eb1b5");
-			req.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-			req.setRequestHeader('Access-Control-Allow-Origin', '*');
-			req.onload = (e) => {
-				if(req.readyState === 4 && req.status === 200) {
-					console.log(req.responseText);
-					document.getElementById("list_id").innerHTML = `Currently using: ${username}'s list`;
+			// var req = new XMLHttpRequest();
+			// req.open("GET", `https://api.myanimelist.net/v2/users/${username}/animelist?status=completed&limit=1000&fields=alternative_titles`);
+			// req.setRequestHeader("X-MAL-CLIENT-ID", "865edc428f4197b494945019f50eb1b5");
+			// req.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+			// req.setRequestHeader('Access-Control-Allow-Origin', '*');
+			// req.onload = (e) => {
+			// 	if(req.readyState === 4 && req.status === 200) {
+			// 		console.log(req.responseText);
+			// 		document.getElementById("list_id").innerHTML = `Currently using: ${username}'s list`;
+			// 	}
+			// 	else {
+			// 		alert(`Error: ${req.statusText}`);
+			// 	}
+			// }
+			// req.onerror = (e) => {
+			// 	alert(`Error: ${req.statusText}`);
+			// }
+			// req.send();
+			fetch(`https://api.myanimelist.net/v2/users/${username}/animelist?status=completed&limit=1000&fields=alternative_titles`, {
+				method: "get",
+				headers: {
+					"Content-Type": "application/json",
+					"X-Requested-With": "XMLHttpRequest",
+					"Access-Control-Allow-Origin": "*",
+					"X-MAL-CLIENT-ID": "865edc428f4197b494945019f50eb1b5"
+				},
+				mode: "no-cors"
+			}).then((response) => {
+				if(!response.ok) {
+					alert(`Error: ${response.statusText}`);
 				}
 				else {
-					alert(`Error: ${req.statusText}`);
+					console.log(response.text());
 				}
-			}
-			req.onerror = (e) => {
-				alert(`Error: ${req.statusText}`);
-			}
-			req.send();
+			})
 		}
 	</script>
 </html>
