@@ -103,6 +103,7 @@
 
 				// end when timer hits -1 so it displays the 0 on screen
 				if(timer_val < 0){
+					document.getElementById("list_skip").innerHTML += "<li>" + anime_list[anime_index] + "</li>";
 					endGame();
 					return;
 				}
