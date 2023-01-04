@@ -50,6 +50,8 @@
 			<br>
 			<button onclick="shuffleAnime()" style="margin-right: 200px;">Shuffle List</button>
 			<button onclick="runGame()">Start Game</button>
+			<br>
+			<p id="description">Placeholder text</p>
 		</div>
 
 		<div id="game" class="center" style="display: none; padding-top: 0px;">
@@ -97,18 +99,18 @@
 			var timer_start = timer_val;
 
 			// have to show timer once before entering setInterval since setInterval waits out the duration BEFORE first run
-			document.getElementById("timer").innerHTML = "Seconds left: <b>" + timer_val + "</b>";
+			document.getElementById("timer").innerHTML = `Seconds left: <b>${timer_val}</b>`;
 			timer = setInterval(function(){
 				timer_val--;
 
 				// end when timer hits -1 so it displays the 0 on screen
 				if(timer_val < 0){
-					document.getElementById("list_skip").innerHTML += "<li>" + anime_list[anime_index] + "</li>";
+					document.getElementById("list_skip").innerHTML += `<li>${anime_list[anime_index]}</li>`;
 					endGame();
 					return;
 				}
 
-				document.getElementById("timer").innerHTML = "Seconds left: <b>" + timer_val + "</b>";
+				document.getElementById("timer").innerHTML = `Seconds left: <b>${timer_val}</b>`;
 				document.getElementById("timer-bar").value = 1 - timer_val/timer_start;
 			}, 1000);
 		}
@@ -121,13 +123,13 @@
 		function nextRound(points){
 			if(points != 0){
 				score += points;
-				document.getElementById("score_game").innerHTML = "Score: <b>" + score + "</b>";
-				document.getElementById("score_end").innerHTML = "Your score was: <b>" + score + "</b>";
+				document.getElementById("score_game").innerHTML = `Score: <b>${score}</b>`;
+				document.getElementById("score_end").innerHTML = `Your score was: ${score}</b>`;
 
-				document.getElementById("list_right").innerHTML += "<li>" + anime_list[anime_index] + "</li>";
+				document.getElementById("list_right").innerHTML += `<li>${anime_list[anime_index]}</li>`;
 			}
 			else{
-				document.getElementById("list_skip").innerHTML += "<li>" + anime_list[anime_index] + "</li>";
+				document.getElementById("list_skip").innerHTML += `<li>${anime_list[anime_index]}</li>`;
 			}
 
 			anime_index++;
