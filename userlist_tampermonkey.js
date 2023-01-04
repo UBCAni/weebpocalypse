@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Weebpocalypse list linking
 // @namespace    jwfiredragon
-// @version      1.0
+// @version      1.1
 // @description  Allows linking user anime lists in Weebpocalypse
 // @author       jwfiredragon
 // @match        https://jwfiredragon.github.io/weebpocalypse/
@@ -9,8 +9,10 @@
 // @grant        unsafeWindow
 // ==/UserScript==
 
-var username = prompt("Enter your MAL username, or leave blank to use the default list:", "");
 var description = document.getElementById("description");
+description.innerHTML = '<p>Currently using: Default list</p>';
+
+var username = prompt("Enter your MAL username, or leave blank to use the default list:", "");
 
 if(username != "" && username != null) {
     GM_xmlhttpRequest({
@@ -34,14 +36,11 @@ if(username != "" && username != null) {
                     }
                 });
                 unsafeWindow.anime_list = u_anime_list;
-                description.innerHTML = `Currently using: ${username}'s list`;
+                description.innerHTML = `<p>Currently using: ${username}'s list</p>`;
             }
             else {
                 alert(`Error: ${response.status} ${response.statusText}`);
             }
         }
     });
-}
-else {
-    description.innerHTML = "Currently using: Default list";
 }
