@@ -48,11 +48,10 @@
 				<input type="number" id="timer_val" style="width: 200px;">
 			</div>
 			<br>
-			<button onclick="getList()" style="margin-right: 200px;">Import List</button>
 			<button onclick="shuffleAnime()" style="margin-right: 200px;">Shuffle List</button>
 			<button onclick="runGame()">Start Game</button>
 			<br>
-			<p id="list_id">Currently using: Default list</p>
+			<p id="description">Placeholder text</p>
 		</div>
 
 		<div id="game" class="center" style="display: none; padding-top: 0px;">
@@ -170,45 +169,6 @@
 				const j = Math.floor(Math.random() * (i + 1));
 				[anime_list[i], anime_list[j]] = [anime_list[j], anime_list[i]];
 			}
-		}
-
-		function getList(){
-			var username = prompt("Please enter your MAL username:", "");
-			// var req = new XMLHttpRequest();
-			// req.open("GET", `https://api.myanimelist.net/v2/users/${username}/animelist?status=completed&limit=1000&fields=alternative_titles`);
-			// req.setRequestHeader("X-MAL-CLIENT-ID", "865edc428f4197b494945019f50eb1b5");
-			// req.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-			// req.setRequestHeader('Access-Control-Allow-Origin', '*');
-			// req.onload = (e) => {
-			// 	if(req.readyState === 4 && req.status === 200) {
-			// 		console.log(req.responseText);
-			// 		document.getElementById("list_id").innerHTML = `Currently using: ${username}'s list`;
-			// 	}
-			// 	else {
-			// 		alert(`Error: ${req.statusText}`);
-			// 	}
-			// }
-			// req.onerror = (e) => {
-			// 	alert(`Error: ${req.statusText}`);
-			// }
-			// req.send();
-			fetch(`https://api.myanimelist.net/v2/users/${username}/animelist?status=completed&limit=1000&fields=alternative_titles`, {
-				method: "get",
-				headers: {
-					"Content-Type": "application/json",
-					"X-Requested-With": "XMLHttpRequest",
-					"Access-Control-Allow-Origin": "*",
-					"X-MAL-CLIENT-ID": "865edc428f4197b494945019f50eb1b5"
-				},
-				mode: "no-cors"
-			}).then((response) => {
-				if(!response.ok) {
-					alert(`Error: ${response.statusText}`);
-				}
-				else {
-					console.log(response.text());
-				}
-			})
 		}
 	</script>
 </html>
