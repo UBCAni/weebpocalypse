@@ -39,7 +39,7 @@ if __name__ == '__main__':
 			if title_en == title or title_en == "":
 				anime_list.append(title.replace("\"", "'"))
 			else:
-				anime_list.append((title + ' / ' + title_en).replace("\"", "'"))
+				anime_list.append((f'{title} / {title_en}').replace("\"", "'"))
 		# remove duplicate entries
 		anime_id_list = list(set(anime_list))
 
