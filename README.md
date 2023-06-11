@@ -1,7 +1,7 @@
 # weebpocalypse
 
 ## Instructions:
-1. Launch `main.html`, or visit https://jwfiredragon.github.io/weebpocalypse/.
+1. Launch `main.html`, or visit https://ubcanimeclub.github.io/weebpocalypse/.
 1. Enter the desired game length into the timer box.
 1. Click 'Shuffle List' to shuffle the list of anime. The list will stay shuffled until the page is refreshed.
 1. Click 'Start Game'.
